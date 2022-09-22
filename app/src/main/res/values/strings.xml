@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Italian Recipes</string>
+    <string name="recipes">Recipes</string>
+    <string name="NavigationItem_cookbook">Recipes</string>
+    <string name="NavigationItem_favourite">Favourite</string>
+
+
 </resources>

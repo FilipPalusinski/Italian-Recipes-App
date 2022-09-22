@@ -1,22 +1,24 @@
-package pl.studioandroida.italianrecipesapp.ui.theme
+package pl.studioandroida.italianrecipesapp.presentation.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.Color
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val DarkColorPalette = darkColors(
-    primary = Purple200,
-    primaryVariant = Purple700,
+    primary = Green700,
+    primaryVariant = Green700,
     secondary = Teal200
 )
 
 private val LightColorPalette = lightColors(
-    primary = Purple500,
-    primaryVariant = Purple700,
+    primary = Green500,
+    primaryVariant = Green700,
     secondary = Teal200
-
     /* Other default colors to override
     background = Color.White,
     surface = Color.White,
@@ -37,6 +39,13 @@ fun ItalianRecipesTheme(
     } else {
         LightColorPalette
     }
+    val systemUIController = rememberSystemUiController()
+    SideEffect {
+        systemUIController.setSystemBarsColor(
+            color = if (darkTheme) Color.Black else Color.White
+        )
+    }
+
 
     MaterialTheme(
         colors = colors,

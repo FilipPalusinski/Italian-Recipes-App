@@ -1,4 +1,4 @@
-package pl.studioandroida.italianrecipesapp.ui.theme
+package pl.studioandroida.italianrecipesapp.presentation.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes

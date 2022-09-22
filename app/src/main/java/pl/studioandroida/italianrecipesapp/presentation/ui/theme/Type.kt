@@ -1,4 +1,4 @@
-package pl.studioandroida.italianrecipesapp.ui.theme
+package pl.studioandroida.italianrecipesapp.presentation.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
