@@ -27,12 +27,15 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import dagger.hilt.android.AndroidEntryPoint
 import pl.studioandroida.italianrecipesapp.presentation.favourite.FavouriteScreen
 import pl.studioandroida.italianrecipesapp.presentation.home.HomeScreen
+import pl.studioandroida.italianrecipesapp.presentation.home.HomeViewModel
 import pl.studioandroida.italianrecipesapp.presentation.ui.theme.Green500
 import pl.studioandroida.italianrecipesapp.presentation.ui.theme.Green700
 import pl.studioandroida.italianrecipesapp.presentation.ui.theme.ItalianRecipesTheme
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,11 +47,12 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 ) {
                     val navController = rememberNavController()
+                    val HomeViewModel: HomeViewModel = hiltViewModel()
 
                     Scaffold(
                         content = {padding ->
                             Box(modifier = Modifier.padding(padding)) {
-                                Navigation(navController = navController)
+                                Navigation(navController, HomeViewModel)
                             }
                         },
                         bottomBar = {
@@ -64,7 +68,7 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun Navigation(
         navController: NavHostController,
-        //HomeViewModel: HomeViewModel = hiltViewModel(),
+        HomeViewModel: HomeViewModel = hiltViewModel(),
         //FavViewModel: FavouriteViewModel = hiltViewModel()
     ) {
 
@@ -75,8 +79,7 @@ class MainActivity : ComponentActivity() {
             composable(
                 route = NavigationItem.Home.route
             ) {
-                //HomeScreen(HomeViewModel)
-                HomeScreen()
+                HomeScreen(HomeViewModel)
             }
             composable(
                 route = NavigationItem.Favourite.route
