@@ -4,5 +4,6 @@ data class MealAndRecipe (
         val id: Int = 0,
         val name: String,
         val image: String,
+        val description: String,
         val servings: Int
     )

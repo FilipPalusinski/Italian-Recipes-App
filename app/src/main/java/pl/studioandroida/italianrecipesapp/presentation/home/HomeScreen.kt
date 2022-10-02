@@ -23,17 +23,23 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import pl.studioandroida.italianrecipesapp.R
+import pl.studioandroida.italianrecipesapp.presentation.NavigationItem
+import pl.studioandroida.italianrecipesapp.presentation.home.components.MealListItem
 import pl.studioandroida.italianrecipesapp.util.Resource
 
 @Composable
 fun HomeScreen(
+    navController: NavController,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
+    val state = viewModel.mealState.value
     Column(modifier = Modifier
         .fillMaxWidth()
         .padding(20.dp)) {
@@ -46,96 +52,36 @@ fun HomeScreen(
 
         Spacer(modifier = Modifier.height(10.dp))
 
-
         NormalTextField(label = "Search Recipes") {
             Icon(
                 imageVector = Icons.Outlined.Search,
                 contentDescription = null
             )
         }
-        val state = viewModel.mealState.value
 
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             items(state.meals) { meal ->
-                MealListItem(meal.name,meal.image,4)
-                Divider(startIndent = 8.dp, thickness = 1.dp, color = MaterialTheme.colors.onSurface)
+                MealListItem(meal,onItemClick = {
+                    navController.navigate(NavigationItem.Detail.route + "/${meal.id}")
+                })
             }
         }
+        if(state.error.isNotBlank()) {
+            Text(
+                text = state.error,
+                color = MaterialTheme.colors.error,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 20.dp)
 
+            )
+        }
+        if(state.isLoading) { CircularProgressIndicator() }
     }
 
-}
-
-@Composable
-fun MealListItem(
-    name: String,
-    imageName: String,
-    servingCount: Int
-) {
-
-        Spacer(modifier = Modifier.height(20.dp))
-
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(150.dp)
-        ) {
-            val context = LocalContext.current
-            val resources: Resources = context.resources
-            val resourceId: Int = resources.getIdentifier(imageName, "drawable", context.packageName)
-            Image (
-
-                painter = painterResource(id = resourceId),
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                    .clip(RoundedCornerShape(5.dp))
-            )
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(
-                        brush = Brush.verticalGradient(
-                            colors = listOf(
-                                Color.Transparent,
-                                Color.Black
-                            ),
-                            startY = 50f,
-                            endY = 800f
-                        )
-                    )
-            )
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(12.dp),
-                contentAlignment = Alignment.BottomStart
-            ) {
-                Column() {
-                    Text(
-                        text = name,
-                        style = TextStyle(
-                            color = Color.White,
-                            fontSize = 20.sp,
-                            fontWeight = FontWeight.Bold
-                        )
-                    )
-
-                    Text(
-                        text = "Serves $servingCount",
-                        style = TextStyle(
-                            color = Color.White,
-                            fontSize = 15.sp
-                        )
-                    )
-                }
-
-
-            }
-        }
 
 }
-
 
 
 @Composable
@@ -153,10 +99,4 @@ fun NormalTextField(
         onValueChange = { text = it },
         label = { Text(text = label) },
         )
-}
-
-@Preview
-@Composable
-fun HomeScreenPreview(){
-    HomeScreen()
 }

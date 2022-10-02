@@ -15,5 +15,5 @@ data class RecipeEntity (
     val description: String,
     @NonNull
     val servings: Int
-        )
+    )
 

@@ -9,7 +9,9 @@ data class MealAndRecipeEntity(
     @NonNull
     @ColumnInfo(name = "MARname")val name: String = "",
     @NonNull
-    @ColumnInfo(name = "MARimage")val image: String= "",
+    @ColumnInfo(name = "MARimage")val image: String = "",
+    @NonNull
+    @ColumnInfo(name = "MARdesc")val description: String = "",
     @NonNull
     @ColumnInfo(name = "MARservings")val servings: Int= 0
 )
