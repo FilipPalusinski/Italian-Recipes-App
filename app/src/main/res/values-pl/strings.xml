@@ -3,4 +3,9 @@
     <string name="recipes">Przepisy</string>
     <string name="NavigationItem_cookbook">Przepisy</string>
     <string name="NavigationItem_favourite">Ulubione</string>
+    <string name="searchbar_text">Przeszukaj przepisy</string>
+    <string name="detail_screen_about">Opis</string>
+    <string name="detail_screen_ingredients">Składniki</string>
+    <string name="detail_screen_steps">Kroki</string>
+
 </resources>

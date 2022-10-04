@@ -52,7 +52,7 @@ fun HomeScreen(
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        NormalTextField(label = "Search Recipes") {
+        NormalTextField(label = stringResource(R.string.searchbar_text)) {
             Icon(
                 imageVector = Icons.Outlined.Search,
                 contentDescription = null
